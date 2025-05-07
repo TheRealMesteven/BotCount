@@ -40,7 +40,7 @@ namespace BotCount
                 foreach (RoomInfo roomInfo2 in list)
                 {
                     PLUIPlayMenu.UIJoinGameElement jge = (PLUIPlayMenu.UIJoinGameElement)GetJoinGameElementFromRoomInfoInfo.Invoke(__instance, new object[] { roomInfo2 }); // __instance.GetJoinGameElementFromRoomInfo(roomInfo2);
-                    if (jge != null)
+                    if (jge != null && jge.EnemyCount != null)
                     {
                         var data = jge.GetData();
                         int num = 0;
@@ -52,21 +52,20 @@ namespace BotCount
                             data.BotCount.transform.localScale = Vector3.one;
                             data.BotCount.transform.localPosition = jge.ShipType.transform.localPosition + new Vector3(5, 0);
                             jge.ShipType.transform.position -= new Vector3(15, 0);
-                            //data.CopiedEnemyCount.GetComponent<Image>().color = new Color(1, 0.9216f, 0.0157f, 0.5f);
-                            //data.CopiedEnemyCount.GetComponent<Image>().color = new Color(0.6f, 0.55f, 0.01f, 0.5f);
                             data.BotCount.SetActive(false);
                         }
-                        if (data.BotCount != null)
+                        var text = data.BotCount.GetComponentInChildren<Text>();
+                        if (roomInfo2.CustomProperties.ContainsKey("CurrentPlayersPlusBots"))
                         {
-                            var text = data.BotCount.GetComponentInChildren<Text>();
-                            if (roomInfo2.CustomProperties.ContainsKey("CurrentPlayersPlusBots"))
-                            {
-                                num = (int)roomInfo2.CustomProperties["CurrentPlayersPlusBots"];
-                            }
-                            if (text != null)
-                            {
-                                text.text = $"{num - roomInfo2.PlayerCount}";
-                            }
+                            num = (int)roomInfo2.CustomProperties["CurrentPlayersPlusBots"];
+                        }
+                        if (text != null)
+                        {
+                            text.text = $"<color={Config.TextColour.Value}>{num - roomInfo2.PlayerCount}</color>";
+                        }
+                        if (ColorUtility.TryParseHtmlString(Config.BoxColour.Value, out Color color))
+                        {
+                            data.BotCount.GetComponent<Image>().color = color;
                         }
                         data.BotCount.SetActive(num > 0);
                     }

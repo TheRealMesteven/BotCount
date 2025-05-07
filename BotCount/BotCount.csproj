@@ -60,6 +60,10 @@
       <HintPath>C:\Users\Steven\source\repos\pulsar-mod-loader2\lib\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>C:\Users\Steven\source\repos\pulsar-mod-loader2\lib\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:\Users\Steven\source\repos\pulsar-mod-loader2\lib\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
